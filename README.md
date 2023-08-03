@@ -1,4 +1,4 @@
-# Deepimplant project
+# Medical imaging mesh processing
 
 ## data_prep:
 
