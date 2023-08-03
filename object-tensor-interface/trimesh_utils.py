@@ -61,3 +61,23 @@ class Mesh_Tensor:
         stl_like_structure = np.array(stl_like, dtype=np.float32)
         tensor = torch.tensor(stl_like_structure, dtype = torch.float32)
         return tensor
+    
+    def get_centers(self):
+        mesh = self.get_mesh()
+        centers = mesh.vertices[mesh.faces].mean(axis=1)
+        return torch.from_numpy(centers).float()
+    
+    def get_normals(self):
+        mesh = self.get_mesh()
+        normals = mesh.face_normals
+        return torch.from_numpy(normals).float()
+    
+    def get_corners(self):
+        mesh = self.get_mesh()
+        corners = mesh.vertices[mesh.faces]
+        return torch.from_numpy(corners).float()
+    
+    def get_edges(self):
+        mesh = self.get_mesh()
+        edges = mesh.edges_unique
+        return torch.from_numpy(edges).long()
