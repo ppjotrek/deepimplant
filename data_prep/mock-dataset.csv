@@ -1,0 +1,12 @@
+id,item,link
+0,liver,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s1273_liver.nii.g_1.stl
+1,colon,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_colon.nii.g_1.stl
+2,femurleft,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_femur_left.nii.g_1.stl
+3,femurright,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_femur_right.nii.g_1.stl
+4,gluteusmaximusleft,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_maximus_left.nii.g_1.stl
+5,gluteusmaximusright,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_maximus_right.nii.g_1.stl
+6,gluteusmediusleft,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_medius_left.nii.g_1.stl
+7,gluteusmediusright,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_medius_right.nii.g_1.stl
+8,gluteusminimusleft,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_minimus_left.nii.g_1.stl
+9,gluteusminimusright,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_gluteus_minimus_right.nii.g_1.stl
+10,hipleft,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s0000_hip_left.nii.g_1.stl

@@ -1,6 +1,3 @@
-torch
-numpy
+pandas
 matplotlib
-trimesh
-scipy
-"pyglet<2"
+pathlib

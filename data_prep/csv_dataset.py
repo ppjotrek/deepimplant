@@ -26,3 +26,9 @@ with open(os.path.join('/home/ppjotrek/Python/Medshapenet/data_prep/MedShapeNetD
                 csv.write(line)
 
 print('Done creating files!')
+
+
+#Pandas do obsługi CSV
+#Pathlib zamiast os.path.join()
+#Zabudować w funkcję i run if __filename__=='main'
+#torch lightning - doczytać - do budowy trainera
