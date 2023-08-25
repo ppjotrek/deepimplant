@@ -1,21 +1,3 @@
-'''
-
-1. Otworzyć plik csv z danymi (pandas)
-2. Stworzyć plik json z nazwą pliku - mesh_id.json
-3. Dodać nazwę pliku do pliku csv i wpisać klasę obiektu
-4. Wpisać do pliku json klasę obiektu i link do mesha
-5. uruchomić funkcję wyciągającą parametry z mesha
-6. Zapisać parametry jako pliki .npy
-7. Zapisać linki do .npy do .json - może być całość zapisywania do jsona teraz, a nie rozbijać tego na dwa etapy, tak samo tworzenie jsona może być teraz
-8. Zapisać wszystko, zamknąć wszystkie pliki i elo
-
-Dane CSV:
-id,item,link
-0,liver,https://uni-duisburg-essen.sciebo.de/s/8wGC9bfjwGj0i1W/download?path=%2F&files=s1273_liver.nii.g_1.stl
-
-
-'''
-
 from pathlib import Path
 import pandas as pd
 import requests
@@ -194,48 +176,53 @@ class Mesh:
         return normal
     
 
-#Main folder path
-parent_folder = Path(__file__).resolve().parent.parent
-dataset_folder = parent_folder / 'dataset'
-meshes_folder = dataset_folder / 'meshes'
-meshes_folder.mkdir(parents=True, exist_ok=True)
-numpy_folder = dataset_folder / 'data'
-numpy_folder.mkdir(parents=True, exist_ok=True)
+def prepare_data():
+    #Main folder path
+    parent_folder = Path(__file__).resolve().parent.parent
+    dataset_folder = parent_folder / 'dataset'
+    meshes_folder = dataset_folder / 'meshes'
+    meshes_folder.mkdir(parents=True, exist_ok=True)
+    numpy_folder = dataset_folder / 'data'
+    numpy_folder.mkdir(parents=True, exist_ok=True)
 
-print("Preparing CSV file to read data...")
-dataset = pd.read_csv('mock-dataset.csv')
-print("CSV file ready!")
+    print("Preparing CSV file to read data...")
+    dataset = pd.read_csv('mock-dataset.csv')
+    print("CSV file ready!")
 
-print("Starting data preparation...")
+    print("Starting data preparation...")
 
-for index, row in dataset.iterrows():
-    print(row['id'], row['item'], row['link'])
-    filename = "mesh_" + str(row['id']) + ".stl"
-    mesh_file = meshes_folder / filename
-    download_file(row['link'], mesh_file)
-    mesh = Mesh(mesh_file)
-    mesh_folder = numpy_folder / str(row['id'])
-    mesh_folder.mkdir(parents=True, exist_ok=True)
-    np.save(mesh_folder / 'vertices.npy', mesh.get_vertices())
-    np.save(mesh_folder / 'faces.npy', mesh.get_faces())
-    np.save(mesh_folder / 'triangles.npy', mesh.get_triangulated_faces())
-    np.save(mesh_folder / 'corners.npy', mesh.get_corners())
-    np.save(mesh_folder / 'centers.npy', mesh.get_centers())
-    np.save(mesh_folder / 'normals.npy', mesh.get_normals())
-    json_filename = str(row['id']) + '.json'
-    json_file = dataset_folder / json_filename
-    json_content = {"name" : filename,
-                    "class" : row['item'],
-                    "link" : row['link'],
-                    "vertices" : str(mesh_folder / 'vertices.npy'),
-                    "faces" : str(mesh_folder / 'faces.npy'),
-                    "triangles" : str(mesh_folder / 'triangles.npy'),
-                    "corners" : str(mesh_folder / 'corners.npy'),
-                    "centers" : str(mesh_folder / 'centers.npy'),
-                    "normals" : str(mesh_folder / 'normals.npy'),
-                    "mesh" : str(mesh_file)
-                    }
-    json_content = json.dumps(json_content)
-    with json_file.open('w') as f:
-        f.write(json_content)
-    print("Zapisano plik json")
+    for index, row in dataset.iterrows():
+        print(row['id'], row['item'], row['link'])
+        filename = "mesh_" + str(row['id']) + ".stl"
+        mesh_file = meshes_folder / filename
+        download_file(row['link'], mesh_file)
+        mesh = Mesh(mesh_file)
+        mesh_folder = numpy_folder / str(row['id'])
+        mesh_folder.mkdir(parents=True, exist_ok=True)
+        np.save(mesh_folder / 'vertices.npy', mesh.get_vertices())
+        np.save(mesh_folder / 'faces.npy', mesh.get_faces())
+        np.save(mesh_folder / 'triangles.npy', mesh.get_triangulated_faces())
+        np.save(mesh_folder / 'corners.npy', mesh.get_corners())
+        np.save(mesh_folder / 'centers.npy', mesh.get_centers())
+        np.save(mesh_folder / 'normals.npy', mesh.get_normals())
+        json_filename = str(row['id']) + '.json'
+        json_file = dataset_folder / json_filename
+        json_content = {"name" : filename,
+                        "class" : row['item'],
+                        "link" : row['link'],
+                        "vertices" : str(mesh_folder / 'vertices.npy'),
+                        "faces" : str(mesh_folder / 'faces.npy'),
+                        "triangles" : str(mesh_folder / 'triangles.npy'),
+                        "corners" : str(mesh_folder / 'corners.npy'),
+                        "centers" : str(mesh_folder / 'centers.npy'),
+                        "normals" : str(mesh_folder / 'normals.npy'),
+                        "mesh" : str(mesh_file)
+                        }
+        json_content = json.dumps(json_content)
+        with json_file.open('w') as f:
+            f.write(json_content)
+        print("Zapisano plik json")
+
+
+if __name__ == "__main__":
+    prepare_data()
