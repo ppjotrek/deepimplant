@@ -3,6 +3,7 @@ import pandas as pd
 import requests
 import numpy as np
 import json
+import shutil
 
 def download_file(url, save_path):
     response = requests.get(url, stream=True)
@@ -39,7 +40,7 @@ def read_obj_file(path: str):
                 faces.append(line)
             elif line.startswith('vt'):
                 pass
-                #TODO: implement texture vertices
+                #TODO: implement texture vertices?
             elif line.startswith('#') or line.startswith(' ') or line.startswith('/n'):
                 pass
             else:
@@ -77,7 +78,7 @@ def read_stl_file(path: str, return_normals=False):
 
 class Mesh:
 
-    def __init__(self, path: str):
+    def __init__(self, path: str): #TODO: rozbić na dwie klasy (stl i obj), przeciążające klasę Mesh
         if path.suffix == '.obj':
             self.vertices, self.faces = read_obj_file(path)
             self.fileformat = 'obj'
@@ -173,10 +174,9 @@ class Mesh:
         normal_length = (cross_product[0]**2 + cross_product[1]**2 + cross_product[2]**2)**0.5
         normal = [coord / normal_length for coord in cross_product]
 
-        return normal
-    
+        return normal    
 
-def prepare_data():
+def prepare_data(csv_file):
     #Main folder path
     parent_folder = Path(__file__).resolve().parent.parent
     dataset_folder = parent_folder / 'dataset'
@@ -186,7 +186,10 @@ def prepare_data():
     numpy_folder.mkdir(parents=True, exist_ok=True)
 
     print("Preparing CSV file to read data...")
-    dataset = pd.read_csv('mock-dataset.csv')
+    dataset = pd.read_csv(csv_file)
+
+    shutil.copy(csv_file, dataset_folder / 'summary.csv')
+
     print("CSV file ready!")
 
     print("Starting data preparation...")
@@ -225,4 +228,5 @@ def prepare_data():
 
 
 if __name__ == "__main__":
-    prepare_data()
+    CSV = 'mock-dataset.csv'
+    prepare_data(CSV)

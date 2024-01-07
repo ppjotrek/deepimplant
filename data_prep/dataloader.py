@@ -1,17 +1,24 @@
 import json
 import numpy as np
 from pathlib import Path
+import pandas as pd
+from torch.utils.data import Dataset
 
-#Main folder path
-parent_folder = Path(__file__).resolve().parent.parent
-dataset_folder = parent_folder / 'dataset'
 
-json_file = dataset_folder / "0.json"
+BATCH_SIZE = 2
 
-with open(json_file) as f:
-    data = json.load(f)
-print(data)
-
-vertices = np.load(data['vertices'])
-print("Vertices:")
-print(vertices)
+class MeshDataset(Dataset):
+    def __init__(self, targ_dir: str, transform=None, shuffle=True):
+        self.paths = list(Path(targ_dir).glob("*.json"))
+        self.transform = transform
+        self.shuffle = shuffle
+        #TODO: shuffle paths
+        #TODO: implement transform
+        #TODO: implement getting data from json file -> here or in getitem?
+    
+    def __len__(self) -> int:
+        return len(self.paths)
+    
+    def __getitem__(self, idx) -> tuple(torch.Tensor, int):
+        pass
+        #return tensor + label, TODO: which tensor?
