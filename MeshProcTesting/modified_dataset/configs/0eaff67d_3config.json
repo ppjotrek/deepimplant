@@ -1,0 +1,1 @@
+{"0": {"method": "hiperboloid", "a_axis": 6.226674927506253, "b_axis": 1.7827256974700818, "c_axis": 5.7084249278755035, "start_face": 0}, "1": {"method": "growth", "hole_size": 55, "start_face": 0}, "2": {"method": "growth", "hole_size": 83, "start_face": 0}}
